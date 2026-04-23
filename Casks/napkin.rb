@@ -1,17 +1,14 @@
 cask "napkin" do
-  version "0.1.0"
+  version "0.3.0"
   sha256 :no_check
 
-  on_arm do
-    url "https://github.com/johndockery/napkin/releases/download/v#{version}/napkin_#{version}_aarch64.dmg"
-  end
-  on_intel do
-    url "https://github.com/johndockery/napkin/releases/download/v#{version}/napkin_#{version}_x64.dmg"
-  end
+  url "https://github.com/johndockery/napkin/releases/download/v#{version}/napkin_#{version}_aarch64.dmg"
 
   name "napkin"
   desc "Terminal with first-class workspaces, structured scrollback, and agent-awareness"
   homepage "https://github.com/johndockery/napkin"
+
+  depends_on arch: :arm64
 
   app "napkin.app"
 
