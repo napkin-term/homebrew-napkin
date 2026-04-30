@@ -1,19 +1,31 @@
 cask "napkin" do
-  version "0.3.0"
+  version "0.3.1"
   sha256 :no_check
 
-  url "https://github.com/johndockery/napkin/releases/download/v#{version}/napkin_#{version}_aarch64.dmg"
+  arch arm: "aarch64", intel: "x64"
+
+  url "https://github.com/johndockery/napkin/releases/download/v#{version}/napkin_#{version}_#{arch}.dmg"
 
   name "napkin"
   desc "Terminal with first-class workspaces, structured scrollback, and agent-awareness"
   homepage "https://github.com/johndockery/napkin"
 
-  depends_on arch: :arm64
-
   app "napkin.app"
 
-  binary "#{appdir}/napkin.app/Contents/MacOS/napkin"
-  binary "#{appdir}/napkin.app/Contents/MacOS/napkind"
+  on_arm do
+    binary "#{appdir}/napkin.app/Contents/MacOS/napkin-aarch64-apple-darwin", target: "napkin"
+    binary "#{appdir}/napkin.app/Contents/MacOS/napkind-aarch64-apple-darwin", target: "napkind"
+  end
+
+  on_intel do
+    binary "#{appdir}/napkin.app/Contents/MacOS/napkin-x86_64-apple-darwin", target: "napkin"
+    binary "#{appdir}/napkin.app/Contents/MacOS/napkind-x86_64-apple-darwin", target: "napkind"
+  end
+
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
   # The .dmg isn't codesigned or notarized yet. macOS Gatekeeper will quarantine
   # the app on first install; strip the attribute so Launch Services opens it.

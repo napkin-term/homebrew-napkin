@@ -27,8 +27,8 @@ brew install --cask napkin
 
 ## Updating
 
-Every `v*` tag push on `johndockery/napkin` produces a signed release
-with platform-specific `.dmg` artefacts. When the release is published:
+Every `v*` tag push on `johndockery/napkin` produces a release with
+platform-specific `.dmg` artefacts. When the release is published:
 
 1. Bump `version` in `Casks/napkin.rb`.
 2. Replace `sha256 :no_check` with real per-arch checksums:
